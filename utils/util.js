@@ -1,3 +1,5 @@
+var api = require('../config/api.js');
+
 function formatTime(date) {
   var year = date.getFullYear()
   var month = date.getMonth() + 1
@@ -16,15 +18,138 @@ function formatNumber(n) {
   return n[1] ? n : '0' + n
 }
 
-function regexConfig(){
+function regexConfig() {
   var reg = {
-    email:/^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/,
-    phone:/^1(3|4|5|7|8)\d{9}$/
+    email: /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/,
+    phone: /^1(3|4|5|7|8)\d{9}$/
   }
   return reg;
 }
 
+/**
+ * 封封微信的的request
+ */
+function request(url, data = {}, method = "GET") {
+  return new Promise(function (resolve, reject) {
+    wx.request({
+      url: url,
+      data: data,
+      method: method,
+      header: {
+        'Content-Type': 'application/json',
+        'X-Nideshop-Token': wx.getStorageSync('token')
+      },
+      success: function (res) {
+        console.log("success");
+
+        if (res.statusCode == 200) {
+
+          // if (res.data.errno == 401) {
+          //   //需要登录后才可以操作
+          //   wx.showModal({
+          //     title: '',
+          //     content: '请先登录',
+          //     success: function (res) {
+          //       if (res.confirm) {
+          //         wx.removeStorageSync("userInfo");
+          //         wx.removeStorageSync("token");
+
+          //         wx.switchTab({
+          //           url: '/pages/ucenter/index/index'
+          //         });
+          //       }
+          //     }
+          //   });
+          // } else {
+          //   resolve(res.data);
+          // }
+          resolve(res.data);
+        } else {
+          reject(res.errMsg);
+        }
+
+      },
+      fail: function (err) {
+        reject(err)
+        console.log("failed")
+      }
+    })
+  });
+}
+
+/**
+ * 检查微信会话是否过期
+ */
+function checkSession() {
+  return new Promise(function (resolve, reject) {
+    wx.checkSession({
+      success: function () {
+        resolve(true);
+      },
+      fail: function () {
+        reject(false);
+      }
+    })
+  });
+}
+
+/**
+ * 调用微信登录
+ */
+function login() {
+  return new Promise(function (resolve, reject) {
+    wx.login({
+      success: function (res) {
+        if (res.code) {
+          //登录远程服务器
+          console.log(res)
+          resolve(res);
+        } else {
+          reject(res);
+        }
+      },
+      fail: function (err) {
+        reject(err);
+      }
+    });
+  });
+}
+
+function redirect(url) {
+
+  //判断页面是否需要登录
+  if (false) {
+    wx.redirectTo({
+      url: '/pages/auth/login/login'
+    });
+    return false;
+  } else {
+    wx.redirectTo({
+      url: url
+    });
+  }
+}
+
+function showErrorToast(msg) {
+  wx.showToast({
+    title: msg,
+    image: '/images/icon_error.png'
+  })
+}
+
+function showSuccessToast(msg) {
+  wx.showToast({
+    title: msg,
+  })
+}
+
 module.exports = {
   formatTime: formatTime,
-  regexConfig:regexConfig
+  regexConfig: regexConfig,
+  request,
+  redirect,
+  showErrorToast,
+  showSuccessToast,
+  checkSession,
+  login,
 }

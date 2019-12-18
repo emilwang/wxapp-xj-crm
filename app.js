@@ -25,6 +25,7 @@ App({
     }
   },
   globalData:{
-    userInfo:null
+    userInfo:null,
+    serverURL:'http://47.108.27.203/api/'
   }
 })
