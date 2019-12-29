@@ -1,2 +1,31 @@
-<!--pages/regist/index.wxml-->
-<text>pages/regist/index.wxml</text>
+<view class="content">
+ <view>
+   <text>大徐神CRM</text>
+  </view>
+	<form bindsubmit="formSubmit">
+		<view class="input-area">
+			<input class="regist-bottom" name="account" maxlength='20' type="text" placeholder="account"  />
+			<input class="regist-bottom" name="address" maxlength='20' type="text" placeholder="address"  />
+			<input class="regist-bottom" name="code" maxlength='20' type="text" placeholder="code"  />
+			<input class="regist-bottom" name="companyName" maxlength='20' type="text" placeholder="companyName"  />
+			<input class="regist-bottom" name="username" maxlength='20' type="text" placeholder="username"  />
+			<input class="regist-bottom" name="phone" maxlength='20' type="text" placeholder="{{phone}}" disabled="true" />
+			<input class="regist-bottom" name="password" maxlength='20' type="password" placeholder="password"  />
+			<input name="confirmPassword" maxlength='20' type="password" placeholder="confrimPassword"  />
+		</view>
+		<view class="btn-area">
+			<button disabled="{{registDisabled}}" style="background-color:{{registBtnBgBgColor}}" formType="submit" loading="{{btnLoading}}"> {{registBtnTxt}} </button>
+			<view class="txt-area">
+				<!-- <navigator redirect url="../findpassword/index">
+					<text class="forgot-password">忘记密码？</text>
+				</navigator> -->
+				<navigator redirect url="../login/index">
+					<text class="register">登录账号</text>
+				</navigator>
+			</view>
+		</view>
+	</form>
+
+	<!--<progress class="myprogress" percent="{{percent }}" color="{{color}}" active/>-->
+
+</view>

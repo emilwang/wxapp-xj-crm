@@ -1,6 +1,6 @@
 <view class="content">
   <view class="logo">
-    <image mode="aspectFit" src="/images/logo.png"></image>
+   <text>大徐神CRM</text>
   </view>
   <form bindsubmit="formSubmit">
     <view class="input-area">
@@ -13,9 +13,9 @@
     <view class="btn-area">
       <button disabled="{{registDisabled}}" style="background-color:{{registBtnBgBgColor}}" formType="submit" loading="{{btnLoading}}"> {{registBtnTxt}} </button>
       <view class="txt-area">
-        <navigator redirect url="../findpassword/index">
+        <!-- <navigator redirect url="../findpassword/index">
           <text class="forgot-password">忘记密码？</text>
-        </navigator>
+        </navigator> -->
         <navigator redirect url="../login/index">
           <text class="register">登录账号</text>
         </navigator>

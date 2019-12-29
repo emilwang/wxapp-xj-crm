@@ -159,16 +159,19 @@ Page({
       code: smsCode,
       phone: phoneNum
     }, "POST").then(function(res) {
-      if (res.status != 200) {
-        wx.showModal({
-          title: '提示',
-          showCancel: false,
-          content: '请输入正确的短信验证码'
-        });
-      } else {
-        var url = '/pages/'
-        util.redirect(url);
-      }
+      // if (res.status != 200) {
+      //   wx.showModal({
+      //     title: '提示',
+      //     showCancel: false,
+      //     content: '请输入正确的短信验证码'
+      //   });
+      // } else {
+      //   var url = '/pages/regist/index?phone=' + phoneNum
+      //   util.redirect(url);
+      // }
+
+      var url = '/pages/regist/index?phone=' + phoneNum
+      util.redirect(url);
     });
   },
   redirectTo: function(param) {

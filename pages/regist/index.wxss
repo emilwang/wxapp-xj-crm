@@ -1,1 +1,7 @@
 /* pages/regist/index.wxss */
+
+@import "../login/index.wxss";
+
+.regist-bottom {
+  border-bottom: 1px solid #ddd
+}

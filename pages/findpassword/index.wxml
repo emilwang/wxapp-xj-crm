@@ -1,6 +1,6 @@
 <view class="content">
     <view class = "logo">
-        <image mode="aspectFit" src="/images/logo.png"></image>
+        <text>大徐神CRM</text>
     </view>
     <form bindsubmit="formSubmit">
         <view class="input-area">
